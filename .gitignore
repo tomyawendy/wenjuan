@@ -1,0 +1,4 @@
+api/config.php
+data/*.jsonl
+data/dingtalk-token-cache.json
+.ftp-deploy-sync-state.json

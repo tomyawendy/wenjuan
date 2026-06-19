@@ -1,0 +1,46 @@
+name: Deploy to InfinityFree
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate DingTalk config
+        run: |
+          cat > api/config.php <<'PHP'
+          <?php
+          return [
+            'appKey' => '${{ secrets.DINGTALK_APP_KEY }}',
+            'appSecret' => '${{ secrets.DINGTALK_APP_SECRET }}',
+            'operatorId' => '${{ secrets.DINGTALK_OPERATOR_ID }}',
+            'baseId' => 'Y1OQX0akWm6NGrjMCbRn7wkvVGlDd3mE',
+            'sheetIdOrName' => '5JkjRIY',
+            'enableDingTalkWrite' => true
+          ];
+          PHP
+
+      - name: Deploy files by FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./
+          server-dir: /htdocs/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/INFINITYFREE-README.md
+            **/api/config.example.php
+            **/api/get-unionid.php
+            **/api/submissions.php

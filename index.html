@@ -1,0 +1,1497 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>领航保客户体验与服务升级调研</title>
+  <style>
+    :root {
+      --blue: #479bff;
+      --blue-2: #5db3fd;
+      --blue-3: #0078d7;
+      --orange: #ff6600;
+      --red: #e7352c;
+      --red-dark: #c72018;
+      --ink: #132238;
+      --muted: #62748c;
+      --line: #dbe8f7;
+      --bg: #f3f8ff;
+      --soft: #eaf5ff;
+      --white: #ffffff;
+      --danger: #e5484d;
+      --ok: #0e9f6e;
+      --radius: 10px;
+      --shadow: 0 18px 45px rgba(32, 110, 200, .13);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 18% 0%, rgba(93, 179, 253, .30), transparent 34%),
+        linear-gradient(180deg, #eef7ff 0%, #f8fbff 42%, #ffffff 100%);
+      line-height: 1.6;
+    }
+
+    button, input, textarea, select { font: inherit; }
+
+    .topbar {
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar .wrap,
+    .nav .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .topbar .wrap { min-height: 34px; }
+
+    .top-links {
+      display: flex;
+      gap: 18px;
+      white-space: nowrap;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, .92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(219, 232, 247, .82);
+    }
+
+    .nav .wrap { min-height: 72px; }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-logo {
+      width: 133px;
+      height: auto;
+      display: block;
+    }
+
+    .brand strong {
+      display: block;
+      font-size: 20px;
+      letter-spacing: .5px;
+      line-height: 1.1;
+    }
+
+    .brand span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: #344861;
+      font-size: 14px;
+    }
+
+    .nav-menu a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .hero {
+      padding: 44px 0 24px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .hero-grid > *,
+    .layout > * {
+      min-width: 0;
+    }
+
+    .hero-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius);
+      padding: 34px;
+      min-height: 265px;
+      background:
+        linear-gradient(135deg, rgba(0, 124, 215, .96), rgba(83, 177, 253, .90)),
+        #1687e5;
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -90px -120px auto;
+      width: 290px;
+      height: 290px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .16);
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 7px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--red), var(--orange));
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .16);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 5vw, 46px);
+      line-height: 1.14;
+      letter-spacing: -.5px;
+      overflow-wrap: anywhere;
+    }
+
+    .hero-card p {
+      max-width: 680px;
+      margin: 14px 0 0;
+      color: rgba(255, 255, 255, .90);
+      font-size: 17px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 8px;
+      padding: 12px 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+
+    .btn:active { transform: translateY(1px); }
+
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--red), var(--orange));
+      box-shadow: 0 12px 22px rgba(231, 53, 44, .25);
+    }
+
+    .btn-secondary {
+      color: #0f5ea6;
+      background: #fff;
+    }
+
+    .btn-ghost {
+      color: var(--blue-3);
+      background: var(--soft);
+      border: 1px solid #c9e5ff;
+    }
+
+    .summary-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .92);
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    .summary-title {
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .metric {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 12px;
+      padding: 14px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .metric:first-of-type { border-top: 0; }
+
+    .metric-num {
+      color: var(--red);
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .metric p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 26px;
+      padding: 20px 0 64px;
+      align-items: start;
+    }
+
+    .side {
+      position: sticky;
+      top: 92px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: 0 10px 30px rgba(32, 110, 200, .08);
+      overflow: hidden;
+    }
+
+    .progress-box {
+      padding: 18px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #fff, #f7fbff);
+    }
+
+    .progress-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    .progress {
+      height: 8px;
+      border-radius: 999px;
+      background: #e6eef8;
+      overflow: hidden;
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--blue), var(--red));
+      transition: width .2s ease;
+    }
+
+    .steps {
+      padding: 10px;
+      display: grid;
+      gap: 4px;
+    }
+
+    .step-link {
+      width: 100%;
+      text-align: left;
+      border: 0;
+      background: transparent;
+      color: #456075;
+      padding: 10px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    .step-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #c9d8e8;
+      flex: 0 0 auto;
+    }
+
+    .step-link.active {
+      color: var(--blue-3);
+      background: var(--soft);
+      font-weight: 700;
+    }
+
+    .step-link.active .step-dot { background: var(--blue); }
+
+    form {
+      display: grid;
+      gap: 18px;
+    }
+
+    .section {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: 0 12px 34px rgba(32, 110, 200, .07);
+      overflow: hidden;
+    }
+
+    .section-head {
+      padding: 20px 22px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(90deg, #f5fbff, #ffffff);
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.25;
+    }
+
+    .section-head p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .section-body {
+      padding: 22px;
+      display: grid;
+      gap: 22px;
+    }
+
+    .question {
+      display: grid;
+      gap: 12px;
+    }
+
+    .q-title {
+      display: flex;
+      gap: 8px;
+      align-items: baseline;
+      font-weight: 800;
+      color: #20344d;
+    }
+
+    .q-title small {
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .required { color: var(--danger); }
+
+    .options {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .options.compact {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .option {
+      display: flex;
+      gap: 9px;
+      align-items: flex-start;
+      min-height: 48px;
+      padding: 12px;
+      border: 1px solid #d8e6f5;
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+      transition: border-color .15s ease, background .15s ease, box-shadow .15s ease;
+    }
+
+    .option:hover {
+      border-color: #9bd0ff;
+      background: #f8fcff;
+    }
+
+    .option input {
+      margin-top: 4px;
+      accent-color: var(--blue-3);
+    }
+
+    .option:has(input:checked) {
+      border-color: var(--blue);
+      background: #edf7ff;
+      box-shadow: 0 0 0 2px rgba(71, 155, 255, .12);
+    }
+
+    .scale {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+
+    .scale.nps { grid-template-columns: repeat(11, 1fr); }
+
+    .scale label {
+      min-height: 56px;
+      display: grid;
+      place-items: center;
+      border: 1px solid #d8e6f5;
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+      font-weight: 800;
+      color: #34516f;
+    }
+
+    .scale input { display: none; }
+
+    .scale label:has(input:checked) {
+      color: #fff;
+      background: var(--blue-3);
+      border-color: var(--blue-3);
+    }
+
+    .scale-help {
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: -4px;
+    }
+
+    .input, textarea {
+      width: 100%;
+      border: 1px solid #d8e6f5;
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      padding: 12px 13px;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 98px;
+      resize: vertical;
+    }
+
+    .input:focus, textarea:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(71, 155, 255, .14);
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .notice {
+      border-left: 4px solid var(--blue);
+      background: #f2f9ff;
+      padding: 12px 14px;
+      color: #38526b;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .business-module {
+      display: none;
+    }
+
+    .business-module.show,
+    .conditional.show {
+      display: block;
+    }
+
+    .conditional { display: none; }
+
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      padding: 16px;
+      box-shadow: 0 12px 34px rgba(32, 110, 200, .07);
+    }
+
+    .form-actions p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .result {
+      display: none;
+      border: 1px solid #bdebdc;
+      background: #f1fff9;
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+
+    .result.show { display: block; }
+
+    .result.error-state {
+      border-color: #ffc9c9;
+      background: #fff5f5;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0;
+    }
+
+    .tag {
+      border-radius: 999px;
+      background: #e3f7ef;
+      color: #08734f;
+      padding: 6px 10px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .btn[disabled] {
+      cursor: not-allowed;
+      opacity: .65;
+      box-shadow: none;
+    }
+
+    .connect-note {
+      color: #3d536b;
+      background: #fff8f2;
+      border: 1px solid #ffd7ba;
+      border-left: 4px solid var(--orange);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 13px;
+    }
+
+    .error {
+      display: none;
+      color: var(--danger);
+      font-size: 13px;
+      margin-top: 3px;
+    }
+
+    .error.show { display: block; }
+
+    .footer-note {
+      color: var(--muted);
+      font-size: 13px;
+      padding: 18px 0 34px;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .top-links, .nav-menu { display: none; }
+      .hero-grid, .layout { grid-template-columns: 1fr; }
+      .side { position: static; }
+      .hero { padding-top: 28px; }
+    }
+
+    @media (max-width: 640px) {
+      .wrap { width: min(100% - 22px, 1120px); }
+      .topbar .wrap { justify-content: center; }
+      .nav .wrap { min-height: 64px; }
+      .brand-logo { width: 118px; }
+      .brand strong { font-size: 18px; }
+      .hero-card { padding: 24px 18px; }
+      h1 { max-width: 318px; font-size: 24px; line-height: 1.22; word-break: break-all; }
+      .hero-card p { max-width: 318px; font-size: 15px; word-break: break-all; }
+      .summary-card, .section-body, .section-head { padding-left: 16px; padding-right: 16px; }
+      .options, .options.compact, .field-grid, .scale, .scale.nps { grid-template-columns: 1fr; }
+      .scale, .scale.nps {
+        grid-template-columns: repeat(5, 1fr);
+      }
+      .scale.nps label:last-child { grid-column: span 5; }
+      .form-actions { align-items: stretch; flex-direction: column; }
+      .form-actions .btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap">
+      <div>服务热线：400-696-5156</div>
+      <div class="top-links">
+        <span>快速投保</span>
+        <span>领航问答</span>
+        <span>操作指南</span>
+      </div>
+    </div>
+  </div>
+
+  <header class="nav">
+    <div class="wrap">
+      <div class="brand">
+        <img class="brand-logo" src="assets/logo.svg" alt="领航保" />
+        <div>
+          <span>客户体验与服务升级调研</span>
+        </div>
+      </div>
+      <nav class="nav-menu" aria-label="业务导航">
+        <a href="#basic">客户情况</a>
+        <a href="#satisfaction">满意度</a>
+        <a href="#business">业务体验</a>
+        <a href="#follow">推荐回访</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-card">
+          <div class="eyebrow">航运物流服务调研</div>
+          <h1>帮助领航保把服务做得更省心</h1>
+          <p>本问卷预计 1-2 分钟完成。您的反馈将用于优化投保、资质、舱单、系统和客服流程；如留下联系方式，我们将优先跟进您的建议或问题。</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" type="button" onclick="document.getElementById('survey').scrollIntoView({behavior:'smooth'})">开始填写</button>
+            <button class="btn btn-secondary" type="button" onclick="document.getElementById('business').scrollIntoView({behavior:'smooth'})">查看调研重点</button>
+          </div>
+        </div>
+        <aside class="summary-card" aria-label="调研目标">
+          <div class="summary-title">本次调研用于识别</div>
+          <div class="metric">
+            <div class="metric-num">01</div>
+            <p>客服响应、系统稳定、流程便捷等体验短板</p>
+          </div>
+          <div class="metric">
+            <div class="metric-num">02</div>
+            <p>其他平台为主、低推荐分等流失风险信号</p>
+          </div>
+          <div class="metric">
+            <div class="metric-num">03</div>
+            <p>AI 投保、API、理赔查询、对账等产品机会</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <div class="wrap layout" id="survey">
+      <aside class="side">
+        <div class="progress-box">
+          <div class="progress-label">
+            <span>填写进度</span>
+            <strong id="progressText">0%</strong>
+          </div>
+          <div class="progress"><span id="progressBar"></span></div>
+        </div>
+        <div class="steps">
+          <button class="step-link active" type="button" data-target="basic"><span class="step-dot"></span>客户基本情况</button>
+          <button class="step-link" type="button" data-target="satisfaction"><span class="step-dot"></span>整体满意度</button>
+          <button class="step-link" type="button" data-target="business"><span class="step-dot"></span>业务体验分流</button>
+          <button class="step-link" type="button" data-target="competition"><span class="step-dot"></span>竞品与机会</button>
+          <button class="step-link" type="button" data-target="follow"><span class="step-dot"></span>推荐与回访</button>
+        </div>
+      </aside>
+
+      <form id="surveyForm">
+        <section class="section" id="basic">
+          <div class="section-head">
+            <h2>一、客户基本情况</h2>
+          </div>
+          <div class="section-body">
+            <div class="question" data-required="services">
+              <div class="q-title">1. 贵司目前主要使用领航保哪些服务？<span class="required">*</span><small>可多选</small></div>
+              <div class="options compact">
+                <label class="option"><input type="checkbox" name="services" value="货运险投保" data-category="insurance">货运险投保</label>
+                <label class="option"><input type="checkbox" name="services" value="跨境电商险/小包保险" data-category="insurance">跨境电商险/小包保险</label>
+                <label class="option"><input type="checkbox" name="services" value="FMC/ACI/AFR/NVOCC资质办理" data-category="qualification">FMC/ACI/AFR/NVOCC 资质办理</label>
+                <label class="option"><input type="checkbox" name="services" value="AMS/ISF/EHBL/A6A舱单发送" data-category="manifest">AMS/ISF/EHBL/A6A 舱单发送</label>
+                <label class="option"><input type="checkbox" name="services" value="ICS2/MPIC/AFR申报" data-category="manifest">ICS2/MPIC/AFR 申报</label>
+                <label class="option"><input type="checkbox" name="services" value="国内舱单发送" data-category="domestic">国内舱单发送</label>
+                <label class="option"><input type="checkbox" name="services" value="暂未正式使用，只是了解过" data-category="prospect">暂未正式使用，只是了解过</label>
+                <label class="option"><input type="checkbox" name="services" value="其他" data-category="other">其他</label>
+              </div>
+              <div class="error">请选择至少一项服务。</div>
+            </div>
+
+            <div class="question" data-required="frequency">
+              <div class="q-title">2. 贵司使用领航保的频率是？<span class="required">*</span></div>
+              <div class="options compact">
+                <label class="option"><input type="radio" name="frequency" value="每天使用">每天使用</label>
+                <label class="option"><input type="radio" name="frequency" value="每周使用">每周使用</label>
+                <label class="option"><input type="radio" name="frequency" value="每月使用">每月使用</label>
+                <label class="option"><input type="radio" name="frequency" value="偶尔使用">偶尔使用</label>
+                <label class="option"><input type="radio" name="frequency" value="只使用过一次">只使用过一次</label>
+                <label class="option"><input type="radio" name="frequency" value="尚未正式使用">尚未正式使用</label>
+              </div>
+              <div class="error">请选择使用频率。</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="satisfaction">
+          <div class="section-head">
+            <h2>二、整体满意度</h2>
+            <p>评分将用于识别体验短板和后续优先跟进对象。</p>
+          </div>
+          <div class="section-body">
+            <div class="question" data-required="overall">
+              <div class="q-title">3. 您对领航保整体服务的满意度是？<span class="required">*</span></div>
+              <div class="scale">
+                <label><input type="radio" name="overall" value="1">1</label>
+                <label><input type="radio" name="overall" value="2">2</label>
+                <label><input type="radio" name="overall" value="3">3</label>
+                <label><input type="radio" name="overall" value="4">4</label>
+                <label><input type="radio" name="overall" value="5">5</label>
+              </div>
+              <div class="scale-help"><span>非常不满意</span><span>非常满意</span></div>
+              <div class="error">请选择满意度评分。</div>
+            </div>
+
+            <div class="question">
+              <div class="q-title">4. 您认为领航保目前最需要提升的是哪几项？<small>最多选 3 项</small></div>
+              <div class="options">
+                <label class="option"><input type="checkbox" name="improve" value="客服响应速度">客服响应速度</label>
+                <label class="option"><input type="checkbox" name="improve" value="客服专业度">客服专业度</label>
+                <label class="option"><input type="checkbox" name="improve" value="系统稳定性">系统稳定性</label>
+                <label class="option"><input type="checkbox" name="improve" value="操作流程便捷性">操作流程便捷性</label>
+                <label class="option"><input type="checkbox" name="improve" value="价格或费率">价格或费率</label>
+                <label class="option"><input type="checkbox" name="improve" value="保险产品丰富度">保险产品丰富度</label>
+                <label class="option"><input type="checkbox" name="improve" value="资质办理效率">资质办理效率</label>
+                <label class="option"><input type="checkbox" name="improve" value="舱单发送成功率">舱单发送成功率</label>
+                <label class="option"><input type="checkbox" name="improve" value="异常问题处理能力">异常问题处理能力</label>
+                <label class="option"><input type="checkbox" name="improve" value="网站内容查找便利性">网站内容查找便利性</label>
+                <label class="option"><input type="checkbox" name="improve" value="账单、发票、对账体验">账单、发票、对账体验</label>
+                <label class="option"><input type="checkbox" name="improve" value="其他">其他</label>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="business">
+          <div class="section-head">
+            <h2>三、业务体验分流</h2>
+            <p>根据第一题自动显示保险、舱单、资质或转化障碍模块。</p>
+          </div>
+          <div class="section-body">
+            <div class="notice">提示：如果第一题选择了多个服务，相关模块会同时出现。</div>
+
+            <div class="business-module" data-module="insurance">
+              <div class="question">
+                <div class="q-title">5A. 您对货运险/跨境险投保流程的评价是？</div>
+                <div class="scale">
+                  <label><input type="radio" name="insuranceScore" value="1">1</label>
+                  <label><input type="radio" name="insuranceScore" value="2">2</label>
+                  <label><input type="radio" name="insuranceScore" value="3">3</label>
+                  <label><input type="radio" name="insuranceScore" value="4">4</label>
+                  <label><input type="radio" name="insuranceScore" value="5">5</label>
+                </div>
+                <div class="scale-help"><span>不便捷</span><span>很便捷</span></div>
+              </div>
+              <div class="question">
+                <div class="q-title">您最关注哪些保险服务能力？<small>可多选</small></div>
+                <div class="options">
+                  <label class="option"><input type="checkbox" name="insuranceNeed" value="投保速度">投保速度</label>
+                  <label class="option"><input type="checkbox" name="insuranceNeed" value="保费价格">保费价格</label>
+                  <label class="option"><input type="checkbox" name="insuranceNeed" value="出单效率">出单效率</label>
+                  <label class="option"><input type="checkbox" name="insuranceNeed" value="理赔服务">理赔服务</label>
+                  <label class="option"><input type="checkbox" name="insuranceNeed" value="方案匹配">方案匹配</label>
+                  <label class="option"><input type="checkbox" name="insuranceNeed" value="接口对接">接口对接</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="business-module" data-module="manifest">
+              <div class="question">
+                <div class="q-title">5B. 您对领航&骏日舱单发送流程的评价是？</div>
+                <div class="scale">
+                  <label><input type="radio" name="manifestScore" value="1">1</label>
+                  <label><input type="radio" name="manifestScore" value="2">2</label>
+                  <label><input type="radio" name="manifestScore" value="3">3</label>
+                  <label><input type="radio" name="manifestScore" value="4">4</label>
+                  <label><input type="radio" name="manifestScore" value="5">5</label>
+                </div>
+                <div class="scale-help"><span>不稳定</span><span>很稳定</span></div>
+              </div>
+              <div class="question">
+                <div class="q-title">您最关注哪些舱单服务能力？<small>可多选</small></div>
+                <div class="options">
+                  <label class="option"><input type="checkbox" name="manifestNeed" value="发送成功率">发送成功率</label>
+                  <label class="option"><input type="checkbox" name="manifestNeed" value="回执速度">回执速度</label>
+                  <label class="option"><input type="checkbox" name="manifestNeed" value="异常提示">异常提示</label>
+                  <label class="option"><input type="checkbox" name="manifestNeed" value="客服处理">客服处理</label>
+                  <label class="option"><input type="checkbox" name="manifestNeed" value="批量发送">批量发送</label>
+                  <label class="option"><input type="checkbox" name="manifestNeed" value="API 对接">API 对接</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="business-module" data-module="qualification">
+              <div class="question">
+                <div class="q-title">5C. 您对资质办理服务的评价是？</div>
+                <div class="scale">
+                  <label><input type="radio" name="qualificationScore" value="1">1</label>
+                  <label><input type="radio" name="qualificationScore" value="2">2</label>
+                  <label><input type="radio" name="qualificationScore" value="3">3</label>
+                  <label><input type="radio" name="qualificationScore" value="4">4</label>
+                  <label><input type="radio" name="qualificationScore" value="5">5</label>
+                </div>
+                <div class="scale-help"><span>不满意</span><span>很满意</span></div>
+              </div>
+              <div class="question">
+                <div class="q-title">您最关注哪些资质办理能力？<small>可多选</small></div>
+                <div class="options">
+                  <label class="option"><input type="checkbox" name="qualificationNeed" value="办理周期">办理周期</label>
+                  <label class="option"><input type="checkbox" name="qualificationNeed" value="资料指导">资料指导</label>
+                  <label class="option"><input type="checkbox" name="qualificationNeed" value="办理价格">办理价格</label>
+                  <label class="option"><input type="checkbox" name="qualificationNeed" value="办理成功率">办理成功率</label>
+                  <label class="option"><input type="checkbox" name="qualificationNeed" value="政策更新提醒">政策更新提醒</label>
+                  <label class="option"><input type="checkbox" name="qualificationNeed" value="配套业务能力">配套业务能力</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="business-module" data-module="prospect">
+              <div class="question">
+                <div class="q-title">5D. 如果尚未正式使用，主要顾虑是什么？</div>
+                <div class="options">
+                  <label class="option"><input type="checkbox" name="prospectBarrier" value="不了解服务内容">不了解服务内容</label>
+                  <label class="option"><input type="checkbox" name="prospectBarrier" value="价格或费率不确定">价格或费率不确定</label>
+                  <label class="option"><input type="checkbox" name="prospectBarrier" value="已有固定服务商">已有固定服务商</label>
+                  <label class="option"><input type="checkbox" name="prospectBarrier" value="担心系统操作复杂">担心系统操作复杂</label>
+                  <label class="option"><input type="checkbox" name="prospectBarrier" value="需要内部审批">需要内部审批</label>
+                  <label class="option"><input type="checkbox" name="prospectBarrier" value="其他">其他</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="competition">
+          <div class="section-head">
+            <h2>四、竞品与产品机会</h2>
+            <p>帮助我们判断主用关系、流失风险和未来产品优先级。</p>
+          </div>
+          <div class="section-body">
+            <div class="question" data-required="competitor">
+              <div class="q-title">6. 除了领航保，贵司是否还使用其他平台或服务商？<span class="required">*</span></div>
+              <div class="options">
+                <label class="option"><input type="radio" name="competitor" value="没有，只使用领航保">没有，只使用领航保</label>
+                <label class="option"><input type="radio" name="competitor" value="有，领航保为主">有，领航保为主</label>
+                <label class="option"><input type="radio" name="competitor" value="有，其他平台为主">有，其他平台为主</label>
+                <label class="option"><input type="radio" name="competitor" value="曾经使用领航保，现在较少使用">曾经使用领航保，现在较少使用</label>
+                <label class="option"><input type="radio" name="competitor" value="暂不方便透露">暂不方便透露</label>
+              </div>
+              <div class="error">请选择一项。</div>
+            </div>
+
+            <div class="question conditional competitor-detail">
+              <div class="q-title">7. 如果有使用其他渠道/平台，请填写具体名称。</div>
+              <input class="input" name="competitorNames" placeholder="例如：保险公司直投、保险经纪代理、某货代系统、某舱单平台、客户指定渠道等" />
+            </div>
+
+            <div class="question conditional competitor-detail">
+              <div class="q-title">这些其他渠道/平台主要用于哪些业务？<small>可多选</small></div>
+              <div class="options">
+                <label class="option"><input type="checkbox" name="competitorType" value="货运险/跨境险投保">货运险/跨境险投保</label>
+                <label class="option"><input type="checkbox" name="competitorType" value="资质办理">资质办理</label>
+                <label class="option"><input type="checkbox" name="competitorType" value="海外舱单发送">海外舱单发送</label>
+                <label class="option"><input type="checkbox" name="competitorType" value="国内舱单发送">国内舱单发送</label>
+                <label class="option"><input type="checkbox" name="competitorType" value="货代系统/接口">货代系统/接口</label>
+                <label class="option"><input type="checkbox" name="competitorType" value="其他">其他</label>
+              </div>
+            </div>
+
+            <div class="question conditional competitor-detail">
+              <div class="q-title">8. 如果使用其他平台，主要原因是什么？<small>可多选</small></div>
+              <div class="options">
+                <label class="option"><input type="checkbox" name="competitorReason" value="价格更低">价格更低</label>
+                <label class="option"><input type="checkbox" name="competitorReason" value="响应更快">响应更快</label>
+                <label class="option"><input type="checkbox" name="competitorReason" value="系统更稳定">系统更稳定</label>
+                <label class="option"><input type="checkbox" name="competitorReason" value="产品或服务更全">产品或服务更全</label>
+                <label class="option"><input type="checkbox" name="competitorReason" value="操作更方便">操作更方便</label>
+                <label class="option"><input type="checkbox" name="competitorReason" value="客户指定">客户指定</label>
+                <label class="option"><input type="checkbox" name="competitorReason" value="历史合作习惯">历史合作习惯</label>
+                <label class="option"><input type="checkbox" name="competitorReason" value="领航保某些功能暂时不能满足">领航保某些功能暂时不能满足</label>
+              </div>
+            </div>
+
+            <div class="question">
+              <div class="q-title">9. 您希望领航保未来重点增加哪些产品、功能或服务？<small>最多选 3 项</small></div>
+              <div class="options">
+                <label class="option"><input type="checkbox" name="futureNeed" value="AI智能报价/投保">AI 智能报价/投保</label>
+                <label class="option"><input type="checkbox" name="futureNeed" value="货运险自动化投保接口">货运险自动化投保接口</label>
+                <label class="option"><input type="checkbox" name="futureNeed" value="在线理赔进度查询">在线理赔进度查询</label>
+                <label class="option"><input type="checkbox" name="futureNeed" value="FMC/AMS/ISF 合规服务打包">FMC/AMS/ISF 合规服务打包</label>
+                <label class="option"><input type="checkbox" name="futureNeed" value="全球资质办理服务">全球资质办理服务</label>
+                <label class="option"><input type="checkbox" name="futureNeed" value="海外舱单发送服务">海外舱单发送服务</label>
+                <label class="option"><input type="checkbox" name="futureNeed" value="账单对账功能">账单对账功能</label>
+                <label class="option"><input type="checkbox" name="futureNeed" value="API接口对接">API 接口对接</label>
+                <label class="option"><input type="checkbox" name="futureNeed" value="货代系统集成">货代系统集成</label>
+                <label class="option"><input type="checkbox" name="futureNeed" value="风控合规提醒">风控合规提醒</label>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="follow">
+          <div class="section-head">
+            <h2>五、推荐与回访</h2>
+            <p>联系方式放在最后，仅用于进一步沟通和协助解决问题。</p>
+          </div>
+          <div class="section-body">
+            <div class="question" data-required="nps">
+              <div class="q-title">10. 您有多大可能向同行或合作伙伴推荐领航保？<span class="required">*</span></div>
+              <div class="scale nps">
+                <label><input type="radio" name="nps" value="0">0</label>
+                <label><input type="radio" name="nps" value="1">1</label>
+                <label><input type="radio" name="nps" value="2">2</label>
+                <label><input type="radio" name="nps" value="3">3</label>
+                <label><input type="radio" name="nps" value="4">4</label>
+                <label><input type="radio" name="nps" value="5">5</label>
+                <label><input type="radio" name="nps" value="6">6</label>
+                <label><input type="radio" name="nps" value="7">7</label>
+                <label><input type="radio" name="nps" value="8">8</label>
+                <label><input type="radio" name="nps" value="9">9</label>
+                <label><input type="radio" name="nps" value="10">10</label>
+              </div>
+              <div class="scale-help"><span>完全不可能</span><span>非常愿意推荐</span></div>
+              <div class="error">请选择推荐分。</div>
+            </div>
+
+            <div class="question">
+              <div class="q-title">11. 影响您评分的最主要原因是什么？</div>
+              <textarea name="scoreReason" placeholder="例如：响应速度、价格、系统体验、理赔、资质办理周期、舱单异常处理等"></textarea>
+            </div>
+
+            <div class="question">
+              <div class="q-title">12. 如您愿意我们进一步沟通并协助解决问题，请留下联系方式。</div>
+              <div class="field-grid">
+                <input class="input" name="company" placeholder="公司名" />
+                <input class="input" name="contact" placeholder="联系人" />
+                <input class="input" name="phone" placeholder="电话或微信" />
+                <input class="input" name="callbackTopic" placeholder="希望回访的问题" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="result" id="resultBox">
+          <strong>问卷提交成功</strong>
+          <p id="resultText"></p>
+          <div class="tag-list" id="tagList"></div>
+          <button class="btn btn-ghost" type="button" id="downloadBtn">导出本次填写 JSON</button>
+        </div>
+
+        <div class="form-actions">
+          <p>提交后将形成一条结构化客户反馈记录，用于客户分级、回访跟进和产品需求归纳。</p>
+          <button class="btn btn-primary" type="submit" id="submitBtn">提交问卷</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <div class="footer-note">© 领航国际保险经纪有限公司 客户体验与服务升级调研</div>
+
+  <script>
+    const form = document.getElementById('surveyForm');
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    const resultBox = document.getElementById('resultBox');
+    const resultText = document.getElementById('resultText');
+    const tagList = document.getElementById('tagList');
+    const submitBtn = document.getElementById('submitBtn');
+    let latestPayload = null;
+    const SURVEY_API_ENDPOINT = 'api/survey.php';
+    const FIELD_IDS = {
+      recordId: 'hpS3y06',
+      submittedAt: 'D8Ywuzm',
+      sourcePage: 'jSBHFjx',
+      sourceParams: 'EIQAvO5',
+      company: 'Mkywsqt',
+      contact: 'DdzP2R8',
+      phone: 'fC7Hh8I',
+      callbackTopic: '69fwrJ9',
+      serviceCategories: '3cJJCpA',
+      serviceDetails: 'IYszFvF',
+      frequency: '8IFIECn',
+      activityLevel: '2T2Mb8g',
+      overall: 'qlKVGfI',
+      satisfactionLevel: 'SAmfTc8',
+      improve: '2UvQhsT',
+      insuranceScore: 'B5TqGY2',
+      insuranceNeed: 'S9epezL',
+      manifestScore: 'cPvx0I1',
+      manifestNeed: 'keqd1rl',
+      qualificationScore: 'xBXTYkn',
+      qualificationNeed: 'vO7tBgI',
+      prospectBarrier: 'rFXi6u7',
+      competitor: '5ji0cPm',
+      competitorNames: 'V0xJ667',
+      competitorType: 'tWB9ZQO',
+      competitorReason: 'pwVxEqc',
+      competitorRisk: 'm7TESzf',
+      futureNeed: 'GfBF04a',
+      productOpportunityTags: 'AsgtvOm',
+      nps: 'Rel9VIX',
+      npsType: 'vJVIfgo',
+      scoreReason: 'S4HWCli',
+      customerSegments: '8T9HyQj',
+      followPriority: 'mZDXbXA',
+      ownerRole: 'Ivwe7pD',
+      followStatus: 'TlGrG5H',
+      followOwner: 'm5HUDgd',
+      followDeadline: 'ii1jCv3',
+      followRecord: 'hNQnE32',
+      productPoolStatus: 'a5HOqDm',
+      productPoolNote: '5y8ZlmS',
+      rawJson: 'hFlIYf8'
+    };
+
+    const limitChecks = (name, max) => {
+      document.querySelectorAll(`input[name="${name}"]`).forEach(input => {
+        input.addEventListener('change', () => {
+          const checked = [...document.querySelectorAll(`input[name="${name}"]:checked`)];
+          if (checked.length > max) input.checked = false;
+          updateProgress();
+        });
+      });
+    };
+
+    limitChecks('improve', 3);
+    limitChecks('futureNeed', 3);
+
+    document.querySelectorAll('.step-link').forEach(button => {
+      button.addEventListener('click', () => {
+        document.getElementById(button.dataset.target).scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    document.querySelectorAll('input, textarea').forEach(input => {
+      input.addEventListener('input', updateProgress);
+      input.addEventListener('change', () => {
+        syncBusinessModules();
+        syncCompetitorDetails();
+        updateProgress();
+      });
+    });
+
+    function getChecked(name) {
+      return [...document.querySelectorAll(`[name="${name}"]:checked`)].map(item => item.value);
+    }
+
+    function getServiceCategories() {
+      return [...document.querySelectorAll('[name="services"]:checked')]
+        .map(item => item.dataset.category)
+        .filter(Boolean);
+    }
+
+    function getServiceCategoryLabels() {
+      const labels = {
+        insurance: '保险',
+        qualification: '资质办理',
+        manifest: '舱单发送',
+        domestic: '国内舱单',
+        prospect: '未正式使用',
+        other: '其他'
+      };
+      return [...new Set(getServiceCategories().map(value => labels[value]).filter(Boolean))];
+    }
+
+    function getValue(name) {
+      const checked = document.querySelector(`[name="${name}"]:checked`);
+      const field = document.querySelector(`[name="${name}"]`);
+      if (checked) return checked.value;
+      if (!field || ['radio', 'checkbox'].includes(field.type)) return '';
+      return field.value.trim();
+    }
+
+    function syncBusinessModules() {
+      const selected = new Set(getServiceCategories());
+      document.querySelectorAll('.business-module').forEach(module => {
+        module.classList.toggle('show', selected.has(module.dataset.module));
+      });
+    }
+
+    function syncCompetitorDetails() {
+      const value = getValue('competitor');
+      const shouldShow = value && value !== '没有，只使用领航保' && value !== '暂不方便透露';
+      document.querySelectorAll('.competitor-detail').forEach(block => {
+        block.classList.toggle('show', shouldShow);
+        if (!shouldShow) {
+          block.querySelectorAll('input').forEach(input => {
+            if (input.type === 'checkbox' || input.type === 'radio') input.checked = false;
+            else input.value = '';
+          });
+        }
+      });
+    }
+
+    function updateProgress() {
+      const required = ['services', 'frequency', 'overall', 'competitor', 'nps'];
+      const done = required.filter(name => getChecked(name).length || getValue(name)).length;
+      const percent = Math.round(done / required.length * 100);
+      progressBar.style.width = `${percent}%`;
+      progressText.textContent = `${percent}%`;
+
+      const ids = ['basic', 'satisfaction', 'business', 'competition', 'follow'];
+      let active = ids[0];
+      ids.forEach(id => {
+        const rect = document.getElementById(id).getBoundingClientRect();
+        if (rect.top < 180) active = id;
+      });
+      document.querySelectorAll('.step-link').forEach(button => {
+        button.classList.toggle('active', button.dataset.target === active);
+      });
+    }
+
+    function validateForm() {
+      let ok = true;
+      document.querySelectorAll('[data-required]').forEach(block => {
+        const name = block.dataset.required;
+        const hasValue = getChecked(name).length > 0 || Boolean(getValue(name));
+        const error = block.querySelector('.error');
+        if (error) error.classList.toggle('show', !hasValue);
+        if (!hasValue) ok = false;
+      });
+      return ok;
+    }
+
+    function collectPayload() {
+      const data = new FormData(form);
+      const sourceParams = Object.fromEntries(new URLSearchParams(window.location.search).entries());
+      const payload = {
+        recordId: `LHB-${Date.now()}`,
+        submittedAt: new Date().toISOString(),
+        sourcePage: '官网客户体验与服务升级调研',
+        sourceParams,
+        serviceCategories: getServiceCategoryLabels(),
+        serviceDetails: getChecked('services'),
+        frequency: getValue('frequency'),
+        overall: Number(getValue('overall') || 0),
+        improve: getChecked('improve'),
+        insuranceScore: getValue('insuranceScore'),
+        insuranceNeed: getChecked('insuranceNeed'),
+        manifestScore: getValue('manifestScore'),
+        manifestNeed: getChecked('manifestNeed'),
+        qualificationScore: getValue('qualificationScore'),
+        qualificationNeed: getChecked('qualificationNeed'),
+        prospectBarrier: getChecked('prospectBarrier'),
+        competitor: getValue('competitor'),
+        competitorNames: data.get('competitorNames') || '',
+        competitorType: getChecked('competitorType'),
+        competitorReason: getChecked('competitorReason'),
+        futureNeed: getChecked('futureNeed'),
+        nps: Number(getValue('nps') || 0),
+        scoreReason: data.get('scoreReason') || '',
+        company: data.get('company') || '',
+        contact: data.get('contact') || '',
+        phone: data.get('phone') || '',
+        callbackTopic: data.get('callbackTopic') || ''
+      };
+      payload.tags = classifyCustomer(payload);
+      payload.tableRecord = buildTableRecord(payload);
+      payload.apiRecordFields = buildApiRecordFields(payload);
+      payload.aiTableCells = buildAiTableCells(payload);
+      return payload;
+    }
+
+    function classifyCustomer(payload) {
+      const tags = [];
+      const highFrequency = ['每天使用', '每周使用'].includes(payload.frequency);
+      if (highFrequency && payload.overall >= 4 && payload.nps >= 9) tags.push('高价值满意客户');
+      if (highFrequency && (payload.overall <= 3 || payload.nps <= 6)) tags.push('高价值风险客户');
+      if (payload.overall < 4 || payload.nps <= 6) tags.push('风险客户');
+      if (payload.competitor.includes('其他平台为主') || payload.competitor.includes('较少使用')) tags.push('竞品迁移客户');
+      if (payload.futureNeed.some(item => /AI|API|理赔|对账|全球资质|系统集成/.test(item))) tags.push('产品机会客户');
+      if (['偶尔使用', '只使用过一次', '尚未正式使用'].includes(payload.frequency)) tags.push('低频待激活客户');
+      if (!tags.length) tags.push('常规维护客户');
+      return tags;
+    }
+
+    function satisfactionLevel(score) {
+      if (score >= 4) return '高满意';
+      if (score === 3) return '一般';
+      return '低满意';
+    }
+
+    function activityLevel(frequency) {
+      if (['每天使用', '每周使用'].includes(frequency)) return '高频客户';
+      if (frequency === '每月使用') return '稳定客户';
+      if (['偶尔使用', '只使用过一次'].includes(frequency)) return '低频客户';
+      return '潜在客户';
+    }
+
+    function npsType(nps) {
+      if (nps >= 9) return '推荐型';
+      if (nps >= 7) return '被动型';
+      return '贬损型';
+    }
+
+    function competitorRisk(payload) {
+      if (payload.competitor.includes('其他平台为主') || payload.competitor.includes('较少使用')) return '流失风险';
+      if (payload.competitor.includes('领航保为主')) return '观察';
+      if (payload.competitor.includes('不方便透露')) return '较高';
+      return '无风险';
+    }
+
+    function productOpportunityTags(futureNeed) {
+      const tags = [];
+      if (futureNeed.some(item => item.includes('AI'))) tags.push('AI机会');
+      if (futureNeed.some(item => item.includes('API') || item.includes('接口') || item.includes('系统集成'))) tags.push('接口/集成机会');
+      if (futureNeed.some(item => item.includes('理赔'))) tags.push('理赔机会');
+      if (futureNeed.some(item => item.includes('对账'))) tags.push('对账机会');
+      if (futureNeed.some(item => item.includes('资质'))) tags.push('资质机会');
+      if (futureNeed.some(item => item.includes('舱单'))) tags.push('舱单机会');
+      return tags;
+    }
+
+    function followPriority(payload) {
+      if (['高价值风险客户'].some(tag => payload.tags.includes(tag))) return 'P0 立即';
+      if (payload.tags.includes('风险客户') || payload.tags.includes('竞品迁移客户')) return 'P1 48小时';
+      if (payload.tags.includes('产品机会客户') || payload.tags.includes('低频待激活客户')) return 'P2 一周';
+      return 'P3 常规';
+    }
+
+    function followDeadline(priority) {
+      const date = new Date();
+      if (priority === 'P0 立即') date.setDate(date.getDate() + 1);
+      else if (priority === 'P1 48小时') date.setDate(date.getDate() + 2);
+      else if (priority === 'P2 一周') date.setDate(date.getDate() + 7);
+      else date.setDate(date.getDate() + 14);
+      return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} 18:00`;
+    }
+
+    function ownerRole(payload) {
+      if (payload.tags.includes('高价值风险客户') || payload.tags.includes('风险客户')) return '客服主管';
+      if (payload.tags.includes('竞品迁移客户') || payload.tags.includes('低频待激活客户')) return '销售';
+      if (payload.tags.includes('产品机会客户')) return '产品';
+      if (payload.tags.includes('高价值满意客户')) return '销售';
+      return '运营';
+    }
+
+    function buildTableRecord(payload) {
+      const priority = followPriority(payload);
+      return {
+        '记录ID': payload.recordId,
+        '提交时间': payload.submittedAt,
+        '来源页面': payload.sourcePage,
+        '来源参数': JSON.stringify(payload.sourceParams),
+        '公司名': payload.company,
+        '联系人': payload.contact,
+        '电话或微信': payload.phone,
+        '希望回访的问题': payload.callbackTopic,
+        '使用服务大类': payload.serviceCategories.join('；'),
+        '使用服务明细': payload.serviceDetails.join('；'),
+        '使用频率': payload.frequency,
+        '客户活跃度标签': activityLevel(payload.frequency),
+        '整体满意度': payload.overall,
+        '满意度等级': satisfactionLevel(payload.overall),
+        '主要提升项': payload.improve.join('；'),
+        '保险体验分': payload.insuranceScore,
+        '保险关注能力': payload.insuranceNeed.join('；'),
+        '舱单体验分': payload.manifestScore,
+        '舱单关注能力': payload.manifestNeed.join('；'),
+        '资质体验分': payload.qualificationScore,
+        '资质关注能力': payload.qualificationNeed.join('；'),
+        '未使用顾虑': payload.prospectBarrier.join('；'),
+        '是否使用其他渠道': payload.competitor,
+        '其他渠道/平台名称': payload.competitorNames,
+        '其他渠道业务类型': payload.competitorType.join('；'),
+        '选择其他渠道原因': payload.competitorReason.join('；'),
+        '竞品风险等级': competitorRisk(payload),
+        '未来产品需求': payload.futureNeed.join('；'),
+        '产品机会标签': productOpportunityTags(payload.futureNeed).join('；'),
+        'NPS推荐分': payload.nps,
+        'NPS客户类型': npsType(payload.nps),
+        '评分原因': payload.scoreReason,
+        '综合客户分层': payload.tags.join('；'),
+        '回访优先级': priority,
+        '建议负责人角色': ownerRole(payload),
+        '回访状态': '待分配',
+        '回访负责人': '',
+        '回访截止时间': followDeadline(priority),
+        '回访记录': '',
+        '产品需求是否入池': payload.tags.includes('产品机会客户') ? '待确认' : '',
+        '产品需求池备注': '',
+        '原始提交JSON': JSON.stringify(payload)
+      };
+    }
+
+    function buildApiRecordFields(payload) {
+      const priority = followPriority(payload);
+      return {
+        '记录ID': payload.recordId,
+        '提交时间': payload.submittedAt,
+        '来源页面': payload.sourcePage,
+        '来源参数': JSON.stringify(payload.sourceParams),
+        '公司名': payload.company,
+        '联系人': payload.contact,
+        '电话或微信': payload.phone,
+        '希望回访的问题': payload.callbackTopic,
+        '使用服务大类': payload.serviceCategories,
+        '使用服务明细': payload.serviceDetails,
+        '使用频率': payload.frequency,
+        '客户活跃度标签': activityLevel(payload.frequency),
+        '整体满意度': payload.overall,
+        '满意度等级': satisfactionLevel(payload.overall),
+        '主要提升项': payload.improve,
+        '保险体验分': Number(payload.insuranceScore || 0) || '',
+        '保险关注能力': payload.insuranceNeed,
+        '舱单体验分': Number(payload.manifestScore || 0) || '',
+        '舱单关注能力': payload.manifestNeed,
+        '资质体验分': Number(payload.qualificationScore || 0) || '',
+        '资质关注能力': payload.qualificationNeed,
+        '未使用顾虑': payload.prospectBarrier,
+        '是否使用其他渠道': payload.competitor,
+        '其他渠道/平台名称': payload.competitorNames,
+        '其他渠道业务类型': payload.competitorType,
+        '选择其他渠道原因': payload.competitorReason,
+        '竞品风险等级': competitorRisk(payload),
+        '未来产品需求': payload.futureNeed,
+        '产品机会标签': productOpportunityTags(payload.futureNeed),
+        'NPS推荐分': payload.nps,
+        'NPS客户类型': npsType(payload.nps),
+        '评分原因': payload.scoreReason,
+        '综合客户分层': payload.tags,
+        '回访优先级': priority,
+        '建议负责人角色': ownerRole(payload),
+        '回访状态': '待分配',
+        '回访截止时间': followDeadline(priority),
+        '产品需求是否入池': payload.tags.includes('产品机会客户') ? '待确认' : '',
+        '原始提交JSON': JSON.stringify(payload)
+      };
+    }
+
+    function buildAiTableCells(payload) {
+      const priority = followPriority(payload);
+      const cells = {
+        [FIELD_IDS.recordId]: payload.recordId,
+        [FIELD_IDS.submittedAt]: payload.submittedAt,
+        [FIELD_IDS.sourcePage]: payload.sourcePage,
+        [FIELD_IDS.sourceParams]: JSON.stringify(payload.sourceParams),
+        [FIELD_IDS.company]: payload.company,
+        [FIELD_IDS.contact]: payload.contact,
+        [FIELD_IDS.phone]: payload.phone,
+        [FIELD_IDS.callbackTopic]: payload.callbackTopic,
+        [FIELD_IDS.serviceCategories]: payload.serviceCategories,
+        [FIELD_IDS.serviceDetails]: payload.serviceDetails,
+        [FIELD_IDS.frequency]: payload.frequency,
+        [FIELD_IDS.activityLevel]: activityLevel(payload.frequency),
+        [FIELD_IDS.overall]: payload.overall,
+        [FIELD_IDS.satisfactionLevel]: satisfactionLevel(payload.overall),
+        [FIELD_IDS.improve]: payload.improve,
+        [FIELD_IDS.insuranceScore]: Number(payload.insuranceScore || 0) || '',
+        [FIELD_IDS.insuranceNeed]: payload.insuranceNeed,
+        [FIELD_IDS.manifestScore]: Number(payload.manifestScore || 0) || '',
+        [FIELD_IDS.manifestNeed]: payload.manifestNeed,
+        [FIELD_IDS.qualificationScore]: Number(payload.qualificationScore || 0) || '',
+        [FIELD_IDS.qualificationNeed]: payload.qualificationNeed,
+        [FIELD_IDS.prospectBarrier]: payload.prospectBarrier,
+        [FIELD_IDS.competitor]: payload.competitor,
+        [FIELD_IDS.competitorNames]: payload.competitorNames,
+        [FIELD_IDS.competitorType]: payload.competitorType,
+        [FIELD_IDS.competitorReason]: payload.competitorReason,
+        [FIELD_IDS.competitorRisk]: competitorRisk(payload),
+        [FIELD_IDS.futureNeed]: payload.futureNeed,
+        [FIELD_IDS.productOpportunityTags]: productOpportunityTags(payload.futureNeed),
+        [FIELD_IDS.nps]: payload.nps,
+        [FIELD_IDS.npsType]: npsType(payload.nps),
+        [FIELD_IDS.scoreReason]: payload.scoreReason,
+        [FIELD_IDS.customerSegments]: payload.tags,
+        [FIELD_IDS.followPriority]: priority,
+        [FIELD_IDS.ownerRole]: ownerRole(payload),
+        [FIELD_IDS.followStatus]: '待分配',
+        [FIELD_IDS.followOwner]: '',
+        [FIELD_IDS.followDeadline]: followDeadline(priority),
+        [FIELD_IDS.followRecord]: '',
+        [FIELD_IDS.productPoolStatus]: payload.tags.includes('产品机会客户') ? '待确认' : '',
+        [FIELD_IDS.productPoolNote]: '',
+        [FIELD_IDS.rawJson]: JSON.stringify(payload)
+      };
+
+      Object.keys(cells).forEach(key => {
+        if (cells[key] === '' || (Array.isArray(cells[key]) && cells[key].length === 0)) delete cells[key];
+      });
+      return cells;
+    }
+
+    async function submitSurvey(payload) {
+      if (SURVEY_API_ENDPOINT) {
+        const response = await fetch(SURVEY_API_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (!response.ok) throw new Error('提交失败，请稍后重试');
+        return response;
+      }
+      localStorage.setItem('linghangbaoSurveyLatest', JSON.stringify(payload));
+      return { ok: true };
+    }
+
+    form.addEventListener('submit', async event => {
+      event.preventDefault();
+      if (!validateForm()) {
+        const firstError = document.querySelector('.error.show');
+        if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = '提交中...';
+      resultBox.classList.remove('show', 'error-state');
+      tagList.innerHTML = '';
+
+      try {
+        latestPayload = collectPayload();
+        await submitSurvey(latestPayload);
+        resultText.textContent = `本次问卷已完成。系统已生成客户分层标签，后续可按这些标签进入销售、客服或产品跟进流程。`;
+        tagList.innerHTML = latestPayload.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+        resultBox.classList.add('show');
+        resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } catch (error) {
+        resultText.textContent = error.message || '提交失败，请稍后重试。';
+        resultBox.classList.add('show', 'error-state');
+        resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = '提交问卷';
+      }
+    });
+
+    document.getElementById('downloadBtn').addEventListener('click', () => {
+      if (!latestPayload) return;
+      const blob = new Blob([JSON.stringify(latestPayload, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `linghangbao-survey-${Date.now()}.json`;
+      link.click();
+      URL.revokeObjectURL(url);
+    });
+
+    syncBusinessModules();
+    syncCompetitorDetails();
+    updateProgress();
+  </script>
+</body>
+</html>
