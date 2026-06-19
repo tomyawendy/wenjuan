@@ -135,7 +135,7 @@ function uuid_v4() {
 
 function http_json($method, $url, $body = null, $extraHeaders = []) {
   $headers = array_merge([
-    'Content-Type: application/json'
+    'Content-Type: application/json; charset=utf-8'
   ], $extraHeaders);
 
   $ch = curl_init($url);
