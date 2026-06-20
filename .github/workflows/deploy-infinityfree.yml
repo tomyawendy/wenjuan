@@ -42,5 +42,3 @@ jobs:
             **/node_modules/**
             **/INFINITYFREE-README.md
             **/api/config.example.php
-            **/api/get-unionid.php
-            **/api/submissions.php
