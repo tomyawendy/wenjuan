@@ -1,0 +1,5 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^data(/.*)?$ - [R=404,L]
+</IfModule>
+
